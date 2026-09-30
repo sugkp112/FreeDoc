@@ -2,12 +2,8 @@
   const cfg = window.FREEDOC_CONFIG || {};
   const repo = cfg.githubRepo || "YOUR_GITHUB_USERNAME/FreeDoc";
   const configured = !repo.includes("YOUR_GITHUB_USERNAME");
-  const releaseUrl = configured
-    ? `https://github.com/${repo}/releases/latest`
-    : "#setup-github";
-  const assetUrl = configured
-    ? `https://github.com/${repo}/releases/latest/download/${encodeURIComponent(cfg.downloadAsset || "FreeDoc_Setup.exe")}`
-    : "#setup-github";
+  const releaseUrl = configured ? `https://github.com/${repo}/releases/latest` : "#setup-github";
+  const assetUrl = configured ? `https://github.com/${repo}/releases/latest/download/${encodeURIComponent(cfg.downloadAsset || "FreeDoc_Setup.exe")}` : "#setup-github";
 
   document.querySelectorAll("[data-release-url]").forEach(a => a.href = releaseUrl);
   document.querySelectorAll("[data-download-url]").forEach(a => a.href = assetUrl);
@@ -21,13 +17,18 @@
   const year = document.querySelector("[data-year]");
   if (year) year.textContent = new Date().getFullYear();
 
-  const reveal = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        reveal.unobserve(entry.target);
-      }
+  const search = document.querySelector("#toolSearch");
+  const cards = [...document.querySelectorAll("#toolGrid .tool-card")];
+  const noResults = document.querySelector("#noResults");
+  search?.addEventListener("input", () => {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card => {
+      const text = `${card.textContent} ${card.dataset.tool || ""}`.toLowerCase();
+      const visible = !q || text.includes(q);
+      card.hidden = !visible;
+      if (visible) shown++;
     });
-  }, { threshold: .08 });
-  document.querySelectorAll(".reveal").forEach(el => reveal.observe(el));
+    if (noResults) noResults.hidden = shown !== 0;
+  });
 })();

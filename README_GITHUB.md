@@ -57,7 +57,7 @@ For initial verification, if GitHub has trouble validating the domain through Cl
 ## 5. Publish the installer through GitHub Releases
 Create a Release and upload e.g.:
 
-`FreeDoc_Setup_1.3.13.exe`
+`FreeDoc_Setup_1.3.15.exe`
 
 The website's download button is configured to use:
 
