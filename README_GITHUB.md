@@ -21,7 +21,7 @@ githubRepo: "YOUR_GITHUB_USERNAME/FreeDoc"
 to your real repository, for example:
 
 ```js
-githubRepo: "zirujiang/FreeDoc"
+githubRepo: "sugkp112/FreeDoc"
 ```
 
 Also update `latestVersion` and `downloadAsset` when you release a new installer.
@@ -57,7 +57,7 @@ For initial verification, if GitHub has trouble validating the domain through Cl
 ## 5. Publish the installer through GitHub Releases
 Create a Release and upload e.g.:
 
-`FreeDoc_Setup_1.3.15.exe`
+`FreeDoc_Setup_1.3.16.exe`
 
 The website's download button is configured to use:
 
