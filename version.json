@@ -1,0 +1,10 @@
+{
+  "latest": "2.0.27",
+  "released": "2026-10-04",
+  "url": "https://freedoc.zirulab.org",
+  "notes": {
+    "zh-CN": "问题修复：长文件名不再压住页码；打开更快（缩略图分批生成并复用，双击打开更快）；连续文字编辑的光标、表格文字、旋转页面、重复文字等问题；缩略图拖动更清楚。",
+    "ja": "不具合修正：長いファイル名がページ番号に重ならないように；開く速度を改善（サムネイルの分割生成と再利用、ダブルクリック時の高速化）；連続テキスト編集のカーソル位置・表内テキスト・回転ページ・重複テキストを修正；サムネイルのドラッグを分かりやすく。",
+    "en": "Fixes: long file names no longer overlap the page number; faster opening (thumbnails in batches and reused, quicker double-click open); continuous text editing fixes for caret position, table text, rotated pages and duplicated text; clearer thumbnail drag and drop."
+  }
+}

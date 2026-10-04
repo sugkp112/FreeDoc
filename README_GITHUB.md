@@ -57,7 +57,7 @@ For initial verification, if GitHub has trouble validating the domain through Cl
 ## 5. Publish the installer through GitHub Releases
 Create a Release and upload e.g.:
 
-`FreeDoc_Setup_1.3.16.exe`
+`FreeDoc_Setup_2.0.27.exe`
 
 The website's download button is configured to use:
 
@@ -84,3 +84,11 @@ The website's download button is configured to use:
 3. Review all third-party licenses.
 4. Update the privacy page if you later add analytics, ads, accounts, cloud conversion or payments.
 5. Use code signing for the Windows installer when possible.
+
+
+## 以后发布新版：只需要 2 步
+
+1. 把新版程序里的 `deploy/version.json` 复制到网站根目录，覆盖旧的 `version.json`。
+2. 在 GitHub Releases 上传与版本一致的安装包，例如 `FreeDoc_Setup_2.0.27.exe`。
+
+网页会自动从 `version.json` 显示版本号、发布日期和更新说明，并自动生成下载文件名。一般不需要再修改 HTML、CSS 或 JavaScript。

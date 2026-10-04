@@ -2,13 +2,27 @@
   const cfg = window.FREEDOC_CONFIG || {};
   const repo = cfg.githubRepo || "YOUR_GITHUB_USERNAME/FreeDoc";
   const configured = !repo.includes("YOUR_GITHUB_USERNAME");
-  const releaseUrl = configured ? `https://github.com/${repo}/releases/latest` : "#setup-github";
-  const assetUrl = configured ? `https://github.com/${repo}/releases/latest/download/${encodeURIComponent(cfg.downloadAsset || "FreeDoc_Setup.exe")}` : "#setup-github";
+  const releaseUrl = configured ? `https://github.com/${repo}/releases/latest` : "#";
 
-  document.querySelectorAll("[data-release-url]").forEach(a => a.href = releaseUrl);
-  document.querySelectorAll("[data-download-url]").forEach(a => a.href = assetUrl);
-  document.querySelectorAll("[data-version]").forEach(el => el.textContent = cfg.latestVersion || "Latest");
-  document.querySelectorAll("[data-github-repo]").forEach(el => el.textContent = repo);
+  const applyRelease = (release = {}) => {
+    const version = release.latest || cfg.latestVersion || "Latest";
+    const asset = release.downloadAsset || cfg.downloadAsset || (version !== "Latest" ? `FreeDoc_Setup_${version}.exe` : "FreeDoc_Setup.exe");
+    const assetUrl = configured ? `https://github.com/${repo}/releases/latest/download/${encodeURIComponent(asset)}` : releaseUrl;
+    const notes = release.notes && (release.notes["zh-CN"] || release.notes.zh || release.notes.en);
+
+    document.querySelectorAll("[data-release-url]").forEach(a => a.href = releaseUrl);
+    document.querySelectorAll("[data-download-url]").forEach(a => a.href = assetUrl);
+    document.querySelectorAll("[data-version]").forEach(el => el.textContent = version);
+    document.querySelectorAll("[data-release-date]").forEach(el => el.textContent = release.released || "");
+    document.querySelectorAll("[data-release-notes]").forEach(el => el.textContent = notes || "持续改进阅读、编辑、转换与稳定性。具体内容以 GitHub Release Notes 为准。");
+    document.querySelectorAll("[data-github-repo]").forEach(el => el.textContent = repo);
+  };
+
+  applyRelease();
+  fetch(`version.json?t=${Date.now()}`, { cache: "no-store" })
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(applyRelease)
+    .catch(() => {});
 
   const menu = document.querySelector("[data-mobile-menu]");
   const toggle = document.querySelector("[data-menu-toggle]");
